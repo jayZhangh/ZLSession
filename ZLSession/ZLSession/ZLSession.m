@@ -25,7 +25,9 @@
     
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (completionBlock) {
-            completionBlock(data, response, error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(data, response, error);
+            });
         }
     }] resume];
 }
@@ -51,7 +53,9 @@
     [request setHTTPBody:[paramsStrM dataUsingEncoding:NSUTF8StringEncoding]];
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (completionBlock) {
-            completionBlock(data, response, error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(data, response, error);
+            });
         }
     }] resume];
 }
@@ -84,7 +88,9 @@
     [request setValue:[NSString stringWithFormat:@"%lu", [fromData length]] forHTTPHeaderField:@"Content-Length"];
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (completionBlock) {
-            completionBlock(data, response, error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(data, response, error);
+            });
         }
     }] resume];
 }
